@@ -111,6 +111,9 @@ if uploaded_file is not None:
 
     balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    imputer = SimpleImputer(strategy='most_frequent')
+    X_train = imputer.fit_transform(X_train)
+    X_test = imputer.transform(X_test)
     try:
                     if balancing_method == "SMOTE":
                         if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
