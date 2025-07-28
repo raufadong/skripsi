@@ -108,9 +108,8 @@ if valid_categorical_cols:
     X = impute_missing(X)
     st.subheader("📌 Jumlah Nilai Kosong Setelah Imputasi")
     st.write(pd.DataFrame(X).isnull().sum())
-
-            balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
     
                 try:
                         if balancing_method == "SMOTE":
