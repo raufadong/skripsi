@@ -53,7 +53,7 @@ if uploaded_file is not None:
     if df is not None:
         df = remove_unique_id_columns(df)
         df.replace(r"^\s*-\s*$", np.nan, regex=True, inplace=True)
-        df = df.apply(lambda col: pd.to_numeric(col, errors='ignore') if col.dtypes == 'object' else col)
+        df = df.apply(lambda col: pd.to_numeric(col, errors='coerce') if col.dtypes == 'object' else col)
         df = df.convert_dtypes()
         for col in df.columns:
             if df[col].dtype == 'object' or df[col].dtype.name == 'string':
