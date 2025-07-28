@@ -136,11 +136,11 @@ if valid_categorical_cols:
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1] if len(np.unique(y)) == 2 else None
 
-                st.subheader("📈 Evaluasi Model")
-                st.write("**Confusion Matrix:**")
-                st.write(confusion_matrix(y_test, y_pred))
-                st.text("Classification Report:")
-                st.text(classification_report(y_test, y_pred, target_names=list(label_mapping.values()), zero_division=0))
+    st.subheader("📈 Evaluasi Model")
+    st.write("**Confusion Matrix:**")
+    st.write(confusion_matrix(y_test, y_pred))
+    st.text("Classification Report:")
+    st.text(classification_report(y_test, y_pred, target_names=list(label_mapping.values()), zero_division=0))
 
                 if y_prob is not None:
                     auc = roc_auc_score(y_test, y_prob)
