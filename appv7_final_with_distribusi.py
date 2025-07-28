@@ -66,15 +66,25 @@ if uploaded_file is not None:
 
         tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
 
-        with tab1:
-            st.subheader("📋 Pratinjau Dataset")
-            st.dataframe(df.head())
-            st.markdown("**Jumlah Baris:** {} | **Jumlah Kolom:** {}".format(df.shape[0], df.shape[1]))
-            st.markdown("**Kolom yang tersedia:**")
-            st.write(list(df.columns))
+     with tab1:
+    st.subheader("📋 Pratinjau Dataset")
 
-            st.subheader("📌 Statistik Deskriptif")
-            st.dataframe(df.describe(include='all').fillna('-'))
+    # Pastikan semua kolom bertipe object bisa diserialisasi dengan baik
+    for col in df.columns:
+        if df[col].dtype == 'object' or df[col].dtype.name == 'string':
+            df[col] = df[col].astype(str)
+
+    st.dataframe(df.head())
+    st.markdown("**Jumlah Baris:** {} | **Jumlah Kolom:** {}".format(df.shape[0], df.shape[1]))
+    st.markdown("**Kolom yang tersedia:**")
+    st.write(list(df.columns))
+
+    st.subheader("📌 Statistik Deskriptif")
+
+    # Perbaikan error fillna pada tipe data float64
+    desc_df = df.describe(include='all')
+    desc_df = desc_df.astype(object).fillna('-')  # Konversi ke object dulu agar aman diisi '-'
+    st.dataframe(desc_df)
 
         with tab2:
             st.subheader("⚙️ Pelatihan Model")
