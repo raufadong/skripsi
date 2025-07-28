@@ -52,7 +52,7 @@ if uploaded_file is not None:
     df = read_csv(uploaded_file)
     if df is not None:
         df = remove_unique_id_columns(df)
-        df.replace("-", np.nan, inplace=True)
+        df.replace(r"^\s*-\s*$", np.nan, regex=True, inplace=True)
         df = df.apply(lambda col: pd.to_numeric(col, errors='ignore') if col.dtypes == 'object' else col)
         df = df.convert_dtypes()
         for col in df.columns:
