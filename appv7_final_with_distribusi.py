@@ -142,32 +142,32 @@ if valid_categorical_cols:
     st.text("Classification Report:")
     st.text(classification_report(y_test, y_pred, target_names=list(label_mapping.values()), zero_division=0))
 
-                if y_prob is not None:
-                    auc = roc_auc_score(y_test, y_prob)
-                    fpr, tpr, _ = roc_curve(y_test, y_prob)
-                    st.write(f"**ROC AUC Score:** {auc:.4f}")
-                    fig, ax = plt.subplots()
-                    ax.plot(fpr, tpr, label=f'AUC = {auc:.2f}')
-                    ax.plot([0, 1], [0, 1], 'k--')
-                    ax.set_xlabel('False Positive Rate')
-                    ax.set_ylabel('True Positive Rate')
-                    ax.set_title('ROC Curve')
-                    ax.legend(loc='lower right')
-                    st.pyplot(fig)
+    if y_prob is not None:
+        auc = roc_auc_score(y_test, y_prob)
+        fpr, tpr, _ = roc_curve(y_test, y_prob)
+        st.write(f"**ROC AUC Score:** {auc:.4f}")
+        fig, ax = plt.subplots()
+        ax.plot(fpr, tpr, label=f'AUC = {auc:.2f}')
+        ax.plot([0, 1], [0, 1], 'k--')
+        ax.set_xlabel('False Positive Rate')
+        ax.set_ylabel('True Positive Rate')
+        ax.set_title('ROC Curve')
+        ax.legend(loc='lower right')
+        st.pyplot(fig)
 
-                st.subheader("📌 Feature Importance")
-                importances = model.feature_importances_
-                indices = np.argsort(importances)[::-1]
-                feature_names = X.columns
+        st.subheader("📌 Feature Importance")
+        importances = model.feature_importances_
+        indices = np.argsort(importances)[::-1]
+        feature_names = X.columns
 
-                fig2, ax2 = plt.subplots()
-                ax2.barh(range(len(indices)), importances[indices], align='center')
-                ax2.set_yticks(range(len(indices)))
-                ax2.set_yticklabels([feature_names[i] for i in indices])
-                ax2.invert_yaxis()
-                ax2.set_xlabel('Importance')
-                ax2.set_title('Feature Importance')
-                st.pyplot(fig2)
+        fig2, ax2 = plt.subplots()
+        ax2.barh(range(len(indices)), importances[indices], align='center')
+        ax2.set_yticks(range(len(indices)))
+        ax2.set_yticklabels([feature_names[i] for i in indices])
+        ax2.invert_yaxis()
+        ax2.set_xlabel('Importance')
+        ax2.set_title('Feature Importance')
+        st.pyplot(fig2)
 
         with tab3:
             st.subheader("🔍 Prediksi Manual")
