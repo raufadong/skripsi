@@ -49,7 +49,7 @@ def impute_missing(df):
 uploaded_file = st.sidebar.file_uploader("📂 Unggah file CSV", type=["csv"])
 
 if uploaded_file is not None:
-  df = read_csv(uploaded_file)
+      df = read_csv(uploaded_file)
     if df is not None:
         df = remove_unique_id_columns(df)
         df.replace("-", pd.NA, inplace=True)
