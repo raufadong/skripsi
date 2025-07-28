@@ -103,8 +103,8 @@ if uploaded_file is not None:
                     label_mapping = {i: str(i) for i in np.unique(y)}
 
                 # Filter hanya kolom kategori yang tidak semuanya kosong
-valid_categorical_cols = [col for col in X.select_dtypes(include='object').columns if X[col].notna().any()]
-if valid_categorical_cols:
+                valid_categorical_cols = [col for col in X.select_dtypes(include='object').columns if X[col].notna().any()]
+                if valid_categorical_cols:
     X = impute_missing(X)
     st.subheader("📌 Jumlah Nilai Kosong Setelah Imputasi")
     st.write(pd.DataFrame(X).isnull().sum())
