@@ -106,8 +106,8 @@ if uploaded_file is not None:
 valid_categorical_cols = [col for col in X.select_dtypes(include='object').columns if X[col].notna().any()]
 if valid_categorical_cols:
     X = impute_missing(X)
-                st.subheader("📌 Jumlah Nilai Kosong Setelah Imputasi")
-                st.write(pd.DataFrame(X).isnull().sum())
+    st.subheader("📌 Jumlah Nilai Kosong Setelah Imputasi")
+    st.write(pd.DataFrame(X).isnull().sum())
 
                 balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
                 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
