@@ -51,7 +51,7 @@ def impute_missing(df):
 
 uploaded_file = st.sidebar.file_uploader("📂 Unggah file CSV", type=["csv"])
 
-iif uploaded_file is not None:
+if uploaded_file is not None:
     df = read_csv(uploaded_file)
     if df is not None:
         # Konversi aman
