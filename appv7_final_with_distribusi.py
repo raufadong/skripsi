@@ -109,28 +109,28 @@ if valid_categorical_cols:
     st.subheader("📌 Jumlah Nilai Kosong Setelah Imputasi")
     st.write(pd.DataFrame(X).isnull().sum())
 
-                balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
-                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
+            balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    
                 try:
-                    if balancing_method == "SMOTE":
-                        if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
-                            st.warning("Data terlalu tidak seimbang untuk SMOTE. Gunakan metode lain.")
-                        else:
-                            smote = SMOTE()
-                            X_train, y_train = smote.fit_resample(X_train, y_train)
-                            st.subheader("📊 Distribusi Kelas Setelah Penyeimbangan")
-                            st.write(pd.Series(y_train).value_counts().rename_axis("Kelas").reset_index(name="Jumlah"))
-                    elif balancing_method == "NearMiss":
-                        if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
-                            st.warning("Data terlalu tidak seimbang untuk NearMiss. Gunakan metode lain.")
-                        else:
-                            nm = NearMiss()
-                            X_train, y_train = nm.fit_resample(X_train, y_train)
-                            st.subheader("📊 Distribusi Kelas Setelah Penyeimbangan")
-                            st.write(pd.Series(y_train).value_counts().rename_axis("Kelas").reset_index(name="Jumlah"))
-                except ValueError as ve:
-                    st.error(f"Gagal dalam penyeimbangan data: {ve}")
+                        if balancing_method == "SMOTE":
+                            if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
+                                st.warning("Data terlalu tidak seimbang untuk SMOTE. Gunakan metode lain.")
+                            else:
+                                smote = SMOTE()
+                                X_train, y_train = smote.fit_resample(X_train, y_train)
+                                st.subheader("📊 Distribusi Kelas Setelah Penyeimbangan")
+                                st.write(pd.Series(y_train).value_counts().rename_axis("Kelas").reset_index(name="Jumlah"))
+                        elif balancing_method == "NearMiss":
+                            if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
+                                st.warning("Data terlalu tidak seimbang untuk NearMiss. Gunakan metode lain.")
+                            else:
+                                nm = NearMiss()
+                                X_train, y_train = nm.fit_resample(X_train, y_train)
+                                st.subheader("📊 Distribusi Kelas Setelah Penyeimbangan")
+                                st.write(pd.Series(y_train).value_counts().rename_axis("Kelas").reset_index(name="Jumlah"))
+                    except ValueError as ve:
+                        st.error(f"Gagal dalam penyeimbangan data: {ve}")
 
                 model = RandomForestClassifier()
                 model.fit(X_train, y_train)
