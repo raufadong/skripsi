@@ -17,7 +17,6 @@ st.set_page_config(page_title="Universal Classification App", layout="wide")
 st.title("🧠 Universal Classification App dengan SMOTE dan NearMiss")
 st.markdown("Aplikasi ini memungkinkan Anda mengunggah dataset sendiri, memilih target, dan menjalankan model klasifikasi Random Forest dengan penanganan imbalance.")
 
-# Fungsi bantu
 def detect_encoding(uploaded_file):
     raw_data = uploaded_file.read()
     result = chardet.detect(raw_data)
@@ -46,15 +45,12 @@ def impute_missing(df):
     imp = SimpleImputer(strategy='most_frequent')
     imputed = imp.fit_transform(df)
     return pd.DataFrame(imputed, columns=df.columns[:imputed.shape[1]])
-    imputed = imp.fit_transform(df)
-    return pd.DataFrame(imputed, columns=df.columns)
 
 uploaded_file = st.sidebar.file_uploader("📂 Unggah file CSV", type=["csv"])
 
 if uploaded_file is not None:
     df = read_csv(uploaded_file)
     if df is not None:
-        # Konversi aman
         df = df.convert_dtypes()
         for col in df.columns:
             if df[col].dtype == 'object' or df[col].dtype.name == 'string':
@@ -67,8 +63,6 @@ if uploaded_file is not None:
         tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
         with tab1:
             st.subheader("📋 Pratinjau Dataset")
-
-            # Pastikan semua kolom object/string dikonversi eksplisit agar aman diserialisasi
             for col in df.columns:
                 if df[col].dtype == 'object' or df[col].dtype.name == 'string':
                     df[col] = df[col].astype(str)
@@ -80,9 +74,8 @@ if uploaded_file is not None:
 
             st.subheader("📌 Statistik Deskriptif")
             desc_df = df.describe(include='all')
-            desc_df = desc_df.astype(object).fillna('-')
+            desc_df = desc_df.astype(object).where(pd.notna(desc_df), '-')
             st.dataframe(desc_df)
- 
 
         with tab2:
             st.subheader("⚙️ Pelatihan Model")
@@ -170,15 +163,13 @@ if uploaded_file is not None:
                 ax2.set_yticklabels([feature_names[i] for i in indices])
                 ax2.invert_yaxis()
                 ax2.set_xlabel('Importance')
-                ax2.set_title('Feature Importance')
+                ax2.set_title('Feature Importance")
                 st.pyplot(fig2)
 
         with tab3:
             st.subheader("🔍 Prediksi Manual")
-
             input_data = {}
             encoders = {}
-
             for col in df.drop(columns=[target_col]).columns:
                 if df[col].dtype == 'object':
                     le = LabelEncoder()
@@ -207,8 +198,7 @@ if uploaded_file is not None:
                             input_df[col] = pd.to_numeric(input_df[col], errors='coerce')
 
                     input_df = impute_missing(input_df)
-                    input_df = input_df[X.columns]  # Sesuaikan urutan kolom
-
+                    input_df = input_df[X.columns]
                     prediction = model.predict(input_df)
                     predicted_label = label_mapping.get(prediction[0], str(prediction[0]))
                     st.success(f"✅ Hasil Prediksi: {predicted_label}")
