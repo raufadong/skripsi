@@ -132,7 +132,7 @@ if valid_categorical_cols:
                     st.error(f"Gagal dalam penyeimbangan data: {ve}")
 
     model = RandomForestClassifier()
-                model.fit(X_train, y_train)
+    model.fit(X_train, y_train)
                 y_pred = model.predict(X_test)
                 y_prob = model.predict_proba(X_test)[:, 1] if len(np.unique(y)) == 2 else None
 
