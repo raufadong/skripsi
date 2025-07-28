@@ -65,26 +65,24 @@ if uploaded_file is not None:
         st.write(df.isnull().sum())
 
         tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
+                with tab1:
+            st.subheader("📋 Pratinjau Dataset")
 
-     with tab1:
-    st.subheader("📋 Pratinjau Dataset")
+            # Pastikan semua kolom object/string dikonversi eksplisit agar aman diserialisasi
+            for col in df.columns:
+                if df[col].dtype == 'object' or df[col].dtype.name == 'string':
+                    df[col] = df[col].astype(str)
 
-    # Pastikan semua kolom bertipe object bisa diserialisasi dengan baik
-    for col in df.columns:
-        if df[col].dtype == 'object' or df[col].dtype.name == 'string':
-            df[col] = df[col].astype(str)
+            st.dataframe(df.head())
+            st.markdown("**Jumlah Baris:** {} | **Jumlah Kolom:** {}".format(df.shape[0], df.shape[1]))
+            st.markdown("**Kolom yang tersedia:**")
+            st.write(list(df.columns))
 
-    st.dataframe(df.head())
-    st.markdown("**Jumlah Baris:** {} | **Jumlah Kolom:** {}".format(df.shape[0], df.shape[1]))
-    st.markdown("**Kolom yang tersedia:**")
-    st.write(list(df.columns))
+            st.subheader("📌 Statistik Deskriptif")
+            desc_df = df.describe(include='all')
+            desc_df = desc_df.astype(object).fillna('-')
+            st.dataframe(desc_df)
 
-    st.subheader("📌 Statistik Deskriptif")
-
-    # Perbaikan error fillna pada tipe data float64
-    desc_df = df.describe(include='all')
-    desc_df = desc_df.astype(object).fillna('-')  # Konversi ke object dulu agar aman diisi '-'
-    st.dataframe(desc_df)
 
         with tab2:
             st.subheader("⚙️ Pelatihan Model")
