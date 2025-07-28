@@ -61,7 +61,7 @@ if uploaded_file is not None:
     st.subheader("📌 Jumlah Nilai Kosong (Sebelum Imputasi)")
     st.write(df.isnull().sum())
 
-        tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
+    tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
         with tab1:
             st.subheader("📋 Pratinjau Dataset")
             for col in df.columns:
