@@ -78,7 +78,7 @@ if uploaded_file is not None:
             desc_df = desc_df.astype(object).where(pd.notna(desc_df), '-')
             st.dataframe(desc_df)
 
-        with tab2:
+    with tab2:
             st.subheader("⚙️ Pelatihan Model")
             target_col = st.selectbox("🎯 Pilih kolom target (label)", df.columns)
 
