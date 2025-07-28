@@ -163,7 +163,7 @@ if uploaded_file is not None:
                 ax2.set_yticklabels([feature_names[i] for i in indices])
                 ax2.invert_yaxis()
                 ax2.set_xlabel('Importance')
-                ax2.set_title('Feature Importance")
+                ax2.set_title('Feature Importance')
                 st.pyplot(fig2)
 
         with tab3:
