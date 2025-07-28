@@ -112,7 +112,7 @@ if valid_categorical_cols:
     balancing_method = st.radio("🔄 Pilih metode penanganan imbalance:", ["Tanpa Balancing", "SMOTE", "NearMiss"])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-                try:
+    try:
                     if balancing_method == "SMOTE":
                         if len(np.unique(y_train)) < 2 or min(np.bincount(y_train)) < 2:
                             st.warning("Data terlalu tidak seimbang untuk SMOTE. Gunakan metode lain.")
