@@ -51,9 +51,15 @@ def impute_missing(df):
 
 uploaded_file = st.sidebar.file_uploader("📂 Unggah file CSV", type=["csv"])
 
-if uploaded_file is not None:
+iif uploaded_file is not None:
     df = read_csv(uploaded_file)
     if df is not None:
+        # Konversi aman
+        df = df.convert_dtypes()
+        for col in df.columns:
+            if df[col].dtype == 'object' or df[col].dtype.name == 'string':
+                df[col] = df[col].astype(str)
+
         df = remove_unique_id_columns(df)
         st.subheader("📌 Jumlah Nilai Kosong (Sebelum Imputasi)")
         st.write(df.isnull().sum())
