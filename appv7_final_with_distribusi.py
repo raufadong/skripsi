@@ -137,7 +137,7 @@ if uploaded_file is not None:
                 st.write("**Confusion Matrix:**")
                 st.write(confusion_matrix(y_test, y_pred))
                 st.text("Classification Report:")
-                st.text(classification_report(y_test, y_pred, target_names=list(label_mapping.values())))
+                st.text(classification_report(y_test, y_pred, target_names=list(label_mapping.values()), zero_division=0))
 
                 if y_prob is not None:
                     auc = roc_auc_score(y_test, y_prob)
@@ -163,7 +163,7 @@ if uploaded_file is not None:
                 ax2.set_yticklabels([feature_names[i] for i in indices])
                 ax2.invert_yaxis()
                 ax2.set_xlabel('Importance')
-                ax2.set_title('Feature Importance')
+                ax2.set_title('Feature Importance")
                 st.pyplot(fig2)
 
         with tab3:
