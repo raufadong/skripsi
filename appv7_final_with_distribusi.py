@@ -62,7 +62,7 @@ if uploaded_file is not None:
     st.write(df.isnull().sum())
 
     tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
-        with tab1:
+    with tab1:
             st.subheader("📋 Pratinjau Dataset")
             for col in df.columns:
                 if df[col].dtype == 'object' or df[col].dtype.name == 'string':
