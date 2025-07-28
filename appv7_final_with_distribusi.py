@@ -65,7 +65,7 @@ if uploaded_file is not None:
         st.write(df.isnull().sum())
 
         tab1, tab2, tab3 = st.tabs(["📊 Dataset", "⚙️ Pelatihan Model", "🔍 Prediksi Manual"])
-                with tab1:
+        with tab1:
             st.subheader("📋 Pratinjau Dataset")
 
             # Pastikan semua kolom object/string dikonversi eksplisit agar aman diserialisasi
@@ -82,7 +82,7 @@ if uploaded_file is not None:
             desc_df = df.describe(include='all')
             desc_df = desc_df.astype(object).fillna('-')
             st.dataframe(desc_df)
-
+ 
 
         with tab2:
             st.subheader("⚙️ Pelatihan Model")
